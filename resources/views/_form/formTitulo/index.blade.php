@@ -1,3 +1,13 @@
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
 <div class="row">
     <div class="form-group col-md-6">
         <span class="text-gray-700 dark:text-gray-400">Nome de Titular</span>

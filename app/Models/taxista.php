@@ -9,20 +9,25 @@ class taxista extends Model
 {
     use HasFactory;
     protected $fillable = [
-    'nome',
-    'ndebi',
-    'genero',
-    'data',
-    'numerotelefone',
-    'documentos',
-];
-public function titulo()
-{
-    return $this->hasMany(titulo::class);
-}
-public function livrete()
-{
-    return $this->hasMany(livrete::class);
-}
+        'nome',
+        'ndebi',
+        'genero',
+        'data',
+        'numerotelefone',
+        'documentos',
+        'placa_id',
+    ];
+    public function titulo()
+    {
+        return $this->hasMany(titulo::class);
+    }
+    public function livrete()
+    {
+        return $this->hasMany(livrete::class);
+    }
 
+    public function placa()
+    {
+        return $this->belongsTo(Placa::class);
+    }
 }

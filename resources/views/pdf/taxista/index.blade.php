@@ -39,7 +39,7 @@
         </div>
         <div class="text-center">SISTEMA DE SUBVENÇÃO DE COMBUSTÍVEL</div>
         <div class="text-center">LISTA DE TAXISTAS REGISTRADOS</div>
-        <div class="text-center">LISTA DE REGISTRO DE ATÉ {{ $data_atual }}</div>
+        <div class="text-center">FILTRO DE "{{ $start }}" ATÉ "{{ $end }}"</div>
     </header>
 
     <main>

@@ -7,6 +7,7 @@ use App\Http\Controllers\DadosviaturaController;
 use App\Http\Controllers\FormulariosController;
 use App\Http\Controllers\LivreteController;
 use App\Http\Controllers\PasseController;
+use App\Http\Controllers\PlacaController;
 use App\Http\Controllers\Site\TaxistaController;
 use App\Http\Controllers\TabelasController;
 use App\Http\Controllers\TaxiController;
@@ -29,15 +30,19 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'verified'])->prefix('/admin')->group(function () {
   Route::get('', [TabelasController::class, 'index'])->name('admin.dashboard');
-
+  Route::get('/logs', [TabelasController::class, 'log'])->name('admin.logs');
+  Route::post('/pdf/log', [TabelasController::class, 'pdflog'])->name('admin.pdf.log');
+  
+        
   Route::prefix('/taxistas')->group(function () {
     Route::get('', [TaxiController::class, 'index'])->name('admin.taxistas');
     Route::get('/create', [TaxiController::class, 'create'])->name('admin.taxistas.create');
     Route::post('', [TaxiController::class, 'store'])->name('admin.taxistas.store');
     Route::get('/{id}/edit', [TaxiController::class, 'edit'])->where('id', '[0-9]+')->name('admin.taxistas.edit');
     Route::put('/{id}', [TaxiController::class, 'update'])->where('id', '[0-9]+')->name('admin.taxistas.update');
-    Route::get('/{id}', [TaxiController::class, 'destroy'])->where('id', '[0-9]+')->name('admin.taxistas.destroy');
+    Route::delete('/{id}', [TaxiController::class, 'destroy'])->where('id', '[0-9]+')->name('admin.taxistas.destroy');
     Route::post('/pdf', [TaxiController::class, 'taxista'])->name('pdf.taxistas');
+    Route::get('/pdf/taxistaDoc/{id}', [TaxiController::class, 'taxistaDoc'])->name('admin.pdf.taxistaDoc');
   });
   Route::prefix('/livretes')->group(function () {
     Route::get('', [LivreteController::class, 'index'])->name('admin.livretes');
@@ -63,6 +68,15 @@ Route::middleware(['auth', 'verified'])->prefix('/admin')->group(function () {
     Route::get('/{id}/edit', [UsersController::class, 'edit'])->where('id', '[0-9]+')->name('admin.users.edit');
     Route::put('/{id}', [UsersController::class, 'update'])->where('id', '[0-9]+')->name('admin.users.update');
     Route::delete('/{id}', [UsersController::class, 'destroy'])->where('id', '[0-9]+')->name('admin.users.destroy');
+  });
+
+  Route::prefix('/placas')->group(function () {
+    Route::get('', [PlacaController::class, 'index'])->name('admin.placas');
+    Route::get('/create', [PlacaController::class, 'create'])->name('admin.placas.create');
+    Route::post('', [PlacaController::class, 'store'])->name('admin.placas.store');
+    Route::get('/{id}/edit', [PlacaController::class, 'edit'])->where('id', '[0-9]+')->name('admin.placas.edit');
+    Route::put('/{id}', [PlacaController::class, 'update'])->where('id', '[0-9]+')->name('admin.placas.update');
+    Route::delete('/{id}', [PlacaController::class, 'destroy'])->where('id', '[0-9]+')->name('admin.placas.destroy');
   });
 });
 

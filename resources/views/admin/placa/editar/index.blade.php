@@ -25,14 +25,17 @@
                                 <div class="container grid px-6 mx-auto">
                                     <div class="header">
                                         <h2 class="my-6 text-2xl font-semibold text-gray-700">
-                                            Cadastrar Taxista
+                                            Editar placa
                                         </h2>
                                     </div>
                                     <div class="card">
                                         <div class="card-body">
-                                            <form action="{{ route('admin.taxistas.store') }}" method="POST" enctype="multipart/form-data">
-                                                @csrf 
-                                                @include('_form.formTaxista.index')
+                                            <form action="{{ route('admin.placas.update', ['id' => $placa->id]) }}"
+                                                method="POST">
+                                                @csrf
+                                                @method('PUT')
+
+                                                @include('_form.formPlaca.index')
 
                                             </form>
                                         </div>

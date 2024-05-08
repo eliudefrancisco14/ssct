@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTaxistasTable extends Migration
+class CreatePlacasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,11 @@ class CreateTaxistasTable extends Migration
      */
     public function up()
     {
-        Schema::create('taxistas', function (Blueprint $table) {
+        Schema::create('placas', function (Blueprint $table) {
             $table->id();
             $table->string('nome');
-            $table->string('ndebi');
-            $table->enum('genero', ['masculino', 'femenino'/*,'outro'*/]);
-            $table->date('data');
-            $table->string('numerotelefone');
-            $table->string('documentos');            
-            $table->foreignId('placa_id')->constrained('placas');
+            $table->string('localizacao');
+            $table->string('descricao');
             $table->timestamps();
         });
     }
@@ -33,6 +29,6 @@ class CreateTaxistasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('taxistas');
+        Schema::dropIfExists('placas');
     }
 }

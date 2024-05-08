@@ -66,6 +66,22 @@
         @if(auth()->user()->funcao == "Administrador")
 
         <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#placa" aria-expanded="false" aria-controls="placa">
+                <i class="menu-icon mdi mdi-car"></i>
+                <span class="menu-title">Placas</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="placa">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" href="{{route('admin.placas.create')}}"> Cadastrar </a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{route('admin.placas')}}"> Listar
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+
+        <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#user" aria-expanded="false" aria-controls="user">
                 <i class="menu-icon mdi mdi-account-circle-outline"></i>
                 <span class="menu-title">Usuários</span>
@@ -74,11 +90,17 @@
             <div class="collapse" id="user">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item"> <a class="nav-link" href="{{route('admin.users.create')}}"> Cadastrar </a></li>
-                    <li class="nav-item"> <a class="nav-link" href="{{route('admin.users')}}"> Listar
-                        </a>
+                    <li class="nav-item"> <a class="nav-link" href="{{route('admin.users')}}"> Listar </a>
                     </li>
                 </ul>
             </div>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="{{route('admin.logs')}}">
+                <i class="menu-icon mdi mdi-alert"></i>
+                <span class="menu-title">Logs</span>
+            </a>
         </li>
 
         @endif

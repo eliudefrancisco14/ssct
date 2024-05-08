@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Classes\Logger;
 use App\Models\livrete;
 
-use App\Models\taxista;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -12,16 +12,22 @@ use Illuminate\Support\Facades\Validator;
 
 class UsersController extends Controller
 {
+    private $Logger;
+
+    public function __construct()
+    {
+        $this->Logger = new Logger();
+    }
     public function index()
     {
         $response['users'] = User::get();
-
+        $this->Logger->log('info', 'Listou os usuarios');
         return view('admin.user.index', $response);
     }
 
     public function create()
     {
-
+        $this->Logger->log('info', 'Entrou em cadastrar usuario');
         return view('admin.user.criar.index');
     }
 
@@ -45,7 +51,7 @@ class UsersController extends Controller
             'funcao' => $request->input('funcao'),
             'nbi' => $request->input('nbi'),
         ]);
-
+        $this->Logger->log('info', 'Cadastrou usuario');
         return redirect()->route('admin.users');
     }
 
@@ -53,6 +59,7 @@ class UsersController extends Controller
     {
         $user = user::where('id', $id)->first();
         if (!empty($user)) {
+            $this->Logger->log('info', 'Entrou em editar usuario');
             return view('admin.user.editar.index', compact('user'));
         } else {
             return redirect()->route('admin.users');
@@ -78,13 +85,14 @@ class UsersController extends Controller
             'funcao' => $request->input('funcao'),
             'nbi' => $request->input('nbi'),
         ]);
-
+        $this->Logger->log('info', 'Editou usuario');
         return redirect()->route('admin.users');
     }
 
     public function destroy($id)
     {
         User::where('id', $id)->delete();
+        $this->Logger->log('info', 'Removeu usuario');
         return redirect()->route('admin.users');
     }
 }

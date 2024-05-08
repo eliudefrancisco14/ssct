@@ -12,25 +12,11 @@
                             </li>
 
                         </ul>
-                        <div class="border pt-4 px-3 text-center align-items-center">
-                            <form class="d-sm-flex align-items-center justify-content-between row"
-                                action="{{ route('pdf.taxistas') }}" method="POST" target="_blank">
-                                @csrf
-                                <div class="form-group col-md-4">
-                                    De:
-                                    <input type="date" name="start" id="start" class="form-control" required>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    Para:
-                                    <input type="date" name="end" id="end" class="form-control" required>
-                                </div>
-                                <div class="form-group col-md-4 btn-wrapper">
-                                    <button type="submit"class="btn btn-primary text-white me-0">
-                                        <i class="icon-download"></i>
-                                        Imprimir
-                                    </button>
-                                </div>
-                            </form>
+                        <div>
+                            {{-- <div class="btn-wrapper">
+                                <a href="#" class="btn btn-primary text-white me-0"><i class="icon-download"></i>
+                                    Imprimir</a>
+                            </div> --}}
                         </div>
                     </div>
                     <div class="tab-content tab-content-basic">
@@ -38,51 +24,33 @@
                             <div class="container">
                                 <div class="container grid px-6 mx-auto">
                                     <h2 class="my-6 text-2xl font-semibold text-gray-700">
-                                        Listas dos Taxistas
+                                        Listas dos Placas
                                     </h2>
                                     <div class="table-responsive">
                                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
-                                                    <th>Nome</th>
-                                                    <th>Número de Bilhete</th>
-                                                    <th>Gênero</th>
-                                                    <th scope="col">Data de Nascimento</th>
-                                                    <th scope="col">Número de Telefone</th>
-                                                    <th scope="col">Placa</th>
-                                                    <th scope="col">Documento</th>
+                                                    <th>Placa</th>
+                                                    <th>Localização</th>
+                                                    <th>Descrição</th>
                                                     <th>Ações</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($taxistas as $taxista)
+                                                @foreach ($placas as $placa)
                                                     <tr>
                                                         <td class="text-sm">{{ $loop->index + 1 }}</td>
-                                                        <td class=" text-sm">
-                                                            {{ $taxista->nome }}
+                                                        <td>
+                                                            {{ $placa->nome }}
                                                         </td>
-                                                        <td class=" text-sm">
-                                                            {{ $taxista->ndebi }}
+                                                        <td>
+                                                            {{ $placa->localizacao }}
                                                         </td>
-                                                        <td class=" text-sm">
-                                                            {{ $taxista->genero }}
+                                                        <td>
+                                                            {{ $placa->descricao }}
                                                         </td>
-                                                        <td class=" text-sm">
-                                                            {{ $taxista->data }}
-                                                        </td>
-                                                        <td class=" text-sm">
-                                                            {{ $taxista->numerotelefone }}
-                                                        </td>
-                                                        <td class="text-sm">
-                                                            {{ $taxista->placa->nome }}
-                                                        </td>
-                                                        <td class="text-sm">
-                                                            <a href="{{ route('admin.pdf.taxistaDoc',$taxista->id) }}" class="btn btn-primary btn-sm text-white">
-                                                                <i class="icon-download"></i>
-                                                                BI
-                                                            </a>
-                                                        </td>
+                                                        
                                                         <td>
                                                             <div class="dropdown mb-4">
 
@@ -96,11 +64,11 @@
                                                                         aria-labelledby="dropdownMenuSizeButton3">
                                                                         <div class="dropdown-item">
                                                                             <a class="dropdown-item"
-                                                                                href="{{ route('admin.taxistas.edit', $taxista->id) }}">Editar</a>
+                                                                                href="{{route('admin.placas.edit',['id'=>$placa->id])}}">Editar</a>
                                                                         </div>
                                                                         <div class="dropdown-divider"></div>
                                                                         <form
-                                                                            action="{{ route('admin.taxistas.destroy', $taxista->id) }}"
+                                                                            action="{{ route('admin.placas.destroy', $placa->id) }}"
                                                                             method="POST" class="dropdown-item">
                                                                             @csrf
                                                                             @method('DELETE')

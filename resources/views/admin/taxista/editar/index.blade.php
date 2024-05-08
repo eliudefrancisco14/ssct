@@ -31,7 +31,7 @@
                                     <div class="card">
                                         <div class="card-body">
                                             <form action="{{ route('admin.taxistas.update', ['id' => $taxistas->id]) }}"
-                                                method="POST">
+                                                enctype="multipart/form-data" method="POST">
                                                 @csrf
                                                 @method('PUT')
 

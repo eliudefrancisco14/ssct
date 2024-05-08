@@ -2,50 +2,73 @@
 
 namespace App\Http\Controllers;
 
+use App\Classes\Logger;
+use App\Models\Placa;
 use App\Models\taxista;
 use Barryvdh\DomPDF\Facade\Pdf as PDF;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class TaxiController extends Controller
 {
+    private $Logger;
+
+    public function __construct()
+    {
+        $this->Logger = new Logger();
+    }
     public function index()
     {
-
-        $response['taxistas'] = taxista::all();
+        $response['placas'] = Placa::get();
+        $response['taxistas'] = taxista::orderByDesc('id')->get();
+        $this->Logger->log('info', 'Listou os taxistas');
         // dd( $response['formandos']);
         return view('admin.taxista.index', $response);
     }
     public function create()
     {
-        return view('admin.taxista.criar.index');
+        $response['placas'] = Placa::get();
+        $this->Logger->log('info', 'Entrou em cadastrar taxistas');
+        return view('admin.taxista.criar.index', $response);
     }
     public function store(Request $request)
     {
-        /* $request->validate([
-            'title' => 'required|string|max:255',
-            'path' => 'required|mimes:pdf|max:5000',
-        ], [
-            'title' => 'Informar o título',
-            'path' => 'Informar a imagem',
-        ]);
-        $file = $request->file('path')->store('regulation_image');
-        try {
-            $regulation = Regulation::create([
-                'path' => $file,
-                'title' => $request->title,
-            ]);
-        } catch (Exception $e) {
-            return redirect()->back()->with('catch', '1');
-        } */
+        $data = $request->validate([
+            'nome' => 'required',
+            'ndebi' => 'required',
+            'genero' => 'required',
+            'data' => 'required',
+            'numerotelefone' => 'required',
+            'documentos' => 'required|mimes:pdf',
+            'placa_id' => 'required',
 
-        taxista::create($request->all());
+        ]);
+        //$file = $request->file('documentos')->store('taxista');
+        
+        $doc = Storage::putFile('public/documentos', $request->documentos);
+        $docName = str_replace('public/documentos/', '', $doc);
+        $file = $docName;
+
+        taxista::create([
+            'nome' => $request->nome,
+            'ndebi' => $request->ndebi,
+            'genero' => $request->genero,
+            'data' => $request->data,
+            'numerotelefone' => $request->numerotelefone,
+            'documentos' => $file,
+            'placa_id' => $request->placa_id,
+        ]);
+        $this->Logger->log('info', 'Cadastrou taxista os taxistas');
         return redirect()->route('admin.taxistas');
     }
     public function edit($id)
     {
+
+        $placas = Placa::get();
         $taxistas = taxista::where('id', $id)->first();
         if (!empty($taxistas)) {
-            return view('admin.taxista.editar.index', ['taxistas' => $taxistas]);
+            $this->Logger->log('info', 'Entrou em editar taxista');
+            return view('admin.taxista.editar.index', ['taxistas' => $taxistas, 'placas' => $placas]);
         } else {
             return redirect()->route('admin.taxistas');
         }
@@ -53,30 +76,83 @@ class TaxiController extends Controller
     public function update(Request $request, $id)
     {
 
-        $data = [
-            'nome' => $request->nome,
-            'ndebi' => $request->ndebi,
-            'genero' => $request->genero,
-            'data' => $request->data,
-            'numerotelefone' => $request->numerotelefone,
+        $data = $request->validate([
+            'nome' => 'required',
+            'ndebi' => 'required',
+            'genero' => 'required',
+            'data' => 'required',
+            'numerotelefone' => 'required',
+            'documentos' => 'required|mimes:pdf',
+            'placa_id' => 'required',
 
-        ];
-        taxista::where('id', $id)->update($data);
+        ]);
+
+        // $file = $request->file('documentos')->store('taxista');
+        $taxista = taxista::find($id);
+
+        if ($request->documento) {
+            Storage::disk('documentos')->delete($taxista->documentos);
+            
+            $documento = Storage::putFile('public/documentos', $request->documento);
+            $documentoName = str_replace('public/documentos/','',$documento);
+            $data['documentos'] = $documentoName;
+
+        }
+
+        taxista::find($id)->update($data);
+        $this->Logger->log('info', 'Editou taxista');
         return redirect()->route('admin.taxistas');
     }
     public function destroy($id)
     {
         taxista::where('id', $id)->delete();
+        $this->Logger->log('info', 'Removeu taxista');
         return redirect()->route('admin.taxistas');
     }
 
     public function taxista(Request $request)
     {
 
-        $response['taxistas'] = taxista::get();
+        $data = $request->validate([
+            'start' => 'required|date',
+            'end' => 'required|date',
+        ], [
+            'start.required' => 'O campo Data Início é obrigatório.',
+            'start.date' => 'O campo Data Início deve ser data.',
+            'end.required' => 'O campo Data Fim é obrigatório.',
+            'end.date' => 'O campo Data Fim deve ser data.',
+        ]);
 
-        $response['data_atual'] = $request->data_atual;
-        $pdf = PDF::loadview('pdf.taxista.index', $response);
-        return $pdf->setPaper('a4', 'landscape')->stream('pdf', ['Attachment' => 0]);
+        if ($request->start <= $request->end) {
+            $taxistas = taxista::whereBetween('created_at', [$request->start, $request->end])
+                ->orderBy('id', 'desc')
+                ->get();
+
+            $response['taxistas'] = $taxistas;
+            $response['start'] = $request->start;
+            $response['end'] = $request->end;
+
+            $this->Logger->log('info', 'Imprimiu lista de taxistas');
+
+            $pdf = PDF::loadview('pdf.taxista.index', $response);
+            return $pdf->setPaper('a4', 'landscape')->stream('pdf', ['Attachment' => 0]);
+        } else {
+            return redirect()->back();
+        }
+
+    }
+
+    public function taxistaDoc($id)
+    {
+
+        $taxista = taxista::find($id);
+        $path = public_path('storage/documentos/' . $taxista->documentos);
+        //$path = asset('storage/'.$taxista->documentation);
+        //dd($path);
+
+        if (!file_exists($path)) {
+            return redirect()->back();
+        }
+        return response()->download($path);
     }
 }
