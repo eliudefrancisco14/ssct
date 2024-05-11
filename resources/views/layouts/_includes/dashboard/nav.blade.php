@@ -23,13 +23,6 @@
         </ul>
         <ul class="navbar-nav ms-auto">
 
-            <li class="nav-item">
-                <form class="search-form" action="#">
-                    <i class="icon-search"></i>
-                    <input type="search" class="form-control" placeholder="Search Here" title="Search here">
-                </form>
-            </li>
-
             <li class="nav-item dropdown d-none d-lg-block user-dropdown">
                 <a class="nav-link" id="UserDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
                     <img class="img-xs rounded-circle" src="/dist/assets/images/faces/face8.png" alt="Profile image">

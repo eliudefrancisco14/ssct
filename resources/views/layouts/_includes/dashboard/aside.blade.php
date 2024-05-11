@@ -9,7 +9,7 @@
 
         <li class="nav-item">
             <a class="nav-link" href="/" target="_blank">
-                <i class="mdi mdi-grid-large menu-icon"></i>
+                <i class="mdi mdi-web menu-icon"></i>
                 <span class="menu-title">Site</span>
             </a>
         </li>

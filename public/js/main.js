@@ -22,56 +22,10 @@
                 required: true,
                 number: true,
             },
-            matricula1 : {
+            documentos : {
                 required: true,
             },
-            modelo1: {
-                required: true,
-            },
-            marca1 : {
-                required: true,
-            },
-            ndemotor1: {
-                required: true,
-            },
-            cor1: {
-                required: true,
-            },
-            medidaspneus: {
-                required: true,
-            },
-            pesobruto: {
-                required: true,
-            },
-            dentreixos: {
-                required: true,
-            },
-            servico: {
-                required: true,
-                
-            },
-            cilindrada: {
-                required: true,
-            },
-            ndequadro1: {
-                required: true,
-            },
-            lotacao: {
-                required: true,
-            },
-            tara: {
-                required: true,
-            },
-            tipocaixa: {
-                required: true,
-            },
-            combustivel: {
-                required: true,
-            },
-            ndecilindros: {
-                required: true,
-            },
-            dataregistro: {
+            documentoslivrete: {
                 required: true,
             },
             dataemissao: {
@@ -100,9 +54,9 @@
         bodyTag: "fieldset",
         transitionEffect: "fade",
         labels: {
-            previous : 'Previous',
-            next : 'Next',
-            finish : 'Submit',
+            previous : 'Anterior',
+            next : 'Próximo',
+            finish : 'Cadastrar',
             current : ''
         },
         titleTemplate : '<span class="title">#title#</span>',
@@ -118,7 +72,8 @@
         },
         onFinished: function (event, currentIndex)
         {
-            alert('Sumited');
+            // alert('Sumited');
+            return form.submit();
         },
         // onInit : function (event, currentIndex) {
         //     event.append('demo');

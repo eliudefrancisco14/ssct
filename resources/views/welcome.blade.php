@@ -178,20 +178,22 @@
                     <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
                         <div class="container-fluid d-flex justify-content-between align-items-center">
                             <div class="text-start">
-                                <h1 class="mt-3">
-                                    <strong>SSCT</strong>
-                                </h1>
+                                <a href="/">
+                                    <h1 class="mt-3">
+                                        <strong>SSCT</strong>
+                                    </h1>
+                                </a>
                             </div>
 
                             <div class="mt-4 text-end">
                                 <div class="collapse navbar-collapse" id="navbarResponsive">
                                     <ul class="navbar-nav ms-auto my-2 my-lg-0">
-                                        <li class="nav-item"><a class="nav-link" href="#start">Início</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="#services">Serviços</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="#about">Acerca</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="/">Início</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="/#services">Serviços</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="/#about">Acerca</a></li>
                                         @auth
                                             <li class="nav-item">
-                                                <a href="{{ route('dashboard') }}" class="nav-link">Painel</a>
+                                                <a href="{{ route('admin.dashboard') }}" class="nav-link">Painel</a>
                                             </li>
                                         @else
                                             <li class="nav-item">
@@ -387,7 +389,7 @@
                             subvenção de combustível exclusivo para taxistas. Economize mais, dirija mais!.
                         </p>
                         <div class="btn-box">
-                            <a href="">
+                            <a href="{{ route('site') }}">
                                 Cadastro
                             </a>
                         </div>

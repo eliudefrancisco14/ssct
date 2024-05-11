@@ -1,90 +1,92 @@
 <?php
 
 namespace App\Http\Controllers\Site;
+
 use App\Models\taxista;
 use App\Models\livrete;
 use App\Models\titulo;
 use App\Http\Controllers\Controller;
+use App\Models\Placa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class TaxistaController extends Controller
 {
-    public function index(){
-        return view('formulario.dadosviatura.index');
+    public function index()
+    {
+        $response['placas'] = Placa::get();
+        return view('formulario.dadosviatura.index', $response);
     }
     public function create()
-{
-    
-    return view('formulario.dadosviatura.index');
-}
+    {
 
-public function store(Request $request)
-{
-    $data=[
-        'nome'=>$request->nome,
-        'ndebi'=>$request->ndebi,
-        'genero'=>$request->genero,
-        'data'=>$request->data,
-        'numerotelefone'=>$request->numerotelefone,
-        'documentos' => $request->documentos,
-    ];
-   $taxista=taxista::create($data);
+        return view('formulario.dadosviatura.index');
+    }
 
-    $data=[
-         
-        'taxista_id'=>$taxista->id,
-        'matricula1'=>$request->matricula1,
-        'modelo1'=>$request->modelo1,
-        'marca1'=>$request->marca1,
-       'ndemotor1'=>$request->ndemotor1,
-       'cor1'=>$request->cor1,
-       'medidaspneus'=>$request->medidaspneus,
-       'pesobruto'=>$request->pesobruto,
-       'dentreixos'=>$request->dentreixos,
-       'servico'=>$request->servico,
-        'cilindrada'=>$request->cilindrada,
-       'ndequadro1'=>$request->ndequadro1,
-       'lotacao'=>$request->lotacao,
-        'tara'=>$request->tara,
-        'tipodecaixa'=>$request->tipodecaixa,
-        'combustivel'=>$request->combustivel,
-        'ndecilindros'=>$request->ndecilindros,
-        'dataregistro'=>$request->dataregistro,
-        
-    ];
-    $livrete=livrete::create($data);
+    public function store(Request $request)
+    {
 
+        $doc = Storage::putFile('public/documentos', $request->documentostaxista);
+        $docName = str_replace('public/documentos/', '', $doc);
+        $file = $docName;
 
-    $data=[
-        'taxista_id'=>$taxista->id,
-        'livrete_id'=>$livrete->id,  
-        'dataemissao'=>$request->dataemissao,
-        'ndetitulo'=>$request->ndetitulo,
+        $data = [
+            'nome' => $request->nome,
+            'ndebi' => $request->ndebi,
+            'genero' => $request->genero,
+            'data' => $request->data,
+            'numerotelefone' => $request->numerotelefone,
+            'documentos' => $file,
+            'placa_id' => $request->placa_id,
         ];
-   
-        $titulo=titulo::create($data);
-   
-    // Crie uma nova instância de Taxista e Livrete
-    $taxista = new Taxista();
-    $livrete = new Livrete();
-    $titulo = new Titulo();
+        $taxista = taxista::create($data);
 
-    // Preencha os dados do Taxista
-    $taxista->fill($request->all());
-    // Salve o Taxista
-    $taxista->save();
+        $docLivrete = Storage::putFile('public/livretes', $request->documentoslivrete);
+        $docNameLivrete = str_replace('public/livretes/', '', $docLivrete);
+        $file = $docNameLivrete;
 
-    // Preencha os dados do Livrete
-    $livrete->fill($request->all());
-    // Salve o Livrete
-    $livrete->save();
-    
-    $titulo->fill($request->all());
-    // Salve o Livrete
-    $titulo->save();
+        $data = [
+
+            'taxista_id' => $taxista->id,
+            'documentos' => $file,
+            'proprietario' => $request->proprietario,
+
+        ];
+        $livrete = livrete::create($data);
 
 
-    // Redirecione para a rota correta
-    return redirect()->route(('admin.taxistas'),('admin.livretes'),('admin.titulos'));
-}
+        $data = [
+            'taxista_id' => $taxista->id,
+            'livrete_id' => $livrete->id,
+            'dataemissao' => $request->dataemissao,
+            'ndetitulo' => $request->ndetitulo,
+        ];
+
+        $titulo = titulo::create($data);
+
+        /* // Crie uma nova instância de Taxista e Livrete
+        $taxista = new Taxista();
+        $livrete = new Livrete();
+        $titulo = new Titulo();
+
+        // Preencha os dados do Taxista
+        $taxista->fill($request->all());
+        // Salve o Taxista
+        $taxista->save();
+
+        // Preencha os dados do Livrete
+        $livrete->fill($request->all());
+        // Salve o Livrete
+        $livrete->save();
+
+        $titulo->fill($request->all());
+        // Salve o Livrete
+        $titulo->save(); */
+
+
+        // Redirecione para a rota correta
+        
+        return redirect()->back()->with('create', '1');
+
+    }
 }

@@ -13,6 +13,7 @@
             background: #ffffff;
             color: #1d1d1d;
         }
+
         table {
             font-family: arial, sans-serif;
             border-collapse: collapse;
@@ -58,7 +59,8 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>ID</th>
+                            <th>USER_ID</th>
+                            <th class="text-left">USER_NAME</th>
                             <th>IP</th>
                             <th class="text-left">MENSAGEM</th>
                             <th class="text-center">DATA</th>
@@ -66,14 +68,15 @@
                     </thead>
                     <tbody>
                         @foreach ($logs as $item)
-                        <tr class="text-center text-dark">
-                            <td>{{ $loop->index + 1 }}</td>
-                            <td>{{ $item->id }}</td>
-                            <td>{{ $item->REMOTE_ADDR }} </td>
-                            <td class="text-left">{{ $item->message }} </td>
-                            <td>{{ $item->created_at }} </td>
+                            <tr class="text-center text-dark">
+                                <td>{{ $loop->index + 1 }}</td>
+                                <td class="text-left">{{ $item->USER_ID }} </td>
+                                <td class="text-left">{{ $item->USER_NAME }} </td>
+                                <td>{{ $item->REMOTE_ADDR }} </td>
+                                <td class="text-left">{{ $item->message }} </td>
+                                <td>{{ $item->created_at }} </td>
 
-                        </tr>
+                            </tr>
                         @endforeach
                     </tbody>
                 </table>

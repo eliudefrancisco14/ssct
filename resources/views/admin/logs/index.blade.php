@@ -13,7 +13,7 @@
 
                         </ul>
                         <div>
-                            <form action="{{ route('admin.pdf.log') }}" method="post">
+                            <form action="{{ route('admin.pdf.log') }}" method="post" target="_blank">
                                 @csrf
                                 <div class="row">
                                     <div class="form-group col-md-4">

@@ -10,23 +10,8 @@ class livrete extends Model
     use HasFactory;
     protected $fillable = [
     'taxista_id',
-    'matricula1',
-    'modelo1',
-    'marca1',
-   'ndemotor1',
-   'cor1',
-    'medidaspneus',
-    'pesobruto',
-    'dentreixos',
-   'servico',
-    'cilindrada',
-   'ndequadro1',
-   'lotacao',
-    'tara',
-    'tipodecaixa',
-    'combustivel',
-    'ndecilindros',
-    'dataregistro',
+    'documentos',
+    'proprietario',
 ];
 public function titulo()
 {
