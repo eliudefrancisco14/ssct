@@ -21,8 +21,8 @@
         <label for="genero">Gênero</label>
         <select class="form-control" name="genero" id="genero">
             <option value="">  --Selecione o Gênero</option>
-            <option value="Masculino">Masculino</option>
-            <option value="Feminino"> Feminino</option>
+            <option value="masculino">Masculino</option>
+            <option value="femenino"> Feminino</option>
         </select>
     </div>
     <div class="form-group col-md-4">

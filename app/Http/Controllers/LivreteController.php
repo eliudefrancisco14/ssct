@@ -6,6 +6,7 @@ use App\Classes\Logger;
 use App\Models\livrete;
 use App\Models\taxista;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class LivreteController extends Controller
 {
@@ -31,6 +32,19 @@ class LivreteController extends Controller
     public function store(Request $request)
     {
 
+        $docLivrete = Storage::putFile('public/livretes', $request->documentos);
+        $docNameLivrete = str_replace('public/livretes/', '', $docLivrete);
+        $file = $docNameLivrete;
+
+        $data = [
+
+            'taxista_id' => $request->taxista_id,
+            'documentos' => $file,
+            'proprietario' => $request->proprietario,
+
+        ];
+        $livrete = livrete::create($data);
+
         livrete::create($request->all());
         $this->Logger->log('info', 'Cadastrou livrete');
         return redirect()->route('admin.livretes');
@@ -39,38 +53,29 @@ class LivreteController extends Controller
     {
         $taxistas = taxista::all();
         $livretes = livrete::where('id', $id)->first();
-        if (!empty($livretes)) {
-            $this->Logger->log('info', 'Entrou em editar livrete');
-            return view('admin.livrete.editar.index', ['livretes' => $livretes], compact('taxistas'));
-        } else {
-            return redirect()->route('admin.livretes');
-        }
+
+        $this->Logger->log('info', 'Entrou em editar livrete');
+        return view('admin.livrete.editar.index', ['livretes' => $livretes], compact('taxistas'));
     }
     public function update(Request $request, $id)
     {
         $data = [
-
             'taxista_id' => $request->taxista_id,
-            'matricula1' => $request->matricula1,
-            'modelo1' => $request->modelo1,
-            'marca1' => $request->marca1,
-            'ndemotor1' => $request->ndemotor1,
-            'cor1' => $request->cor1,
-            'medidaspneus' => $request->medidaspneus,
-            'pesobruto' => $request->pesobruto,
-            'dentreixos' => $request->dentreixos,
-            'servico' => $request->servico,
-            'cilindrada' => $request->cilindrada,
-            'ndequadro1' => $request->ndequadro1,
-            'lotacao' => $request->lotacao,
-            'tara' => $request->tara,
-            'tipodecaixa' => $request->tipodecaixa,
-            'combustivel' => $request->combustivel,
-            'ndecilindros' => $request->ndecilindros,
-            'dataregistro' => $request->dataregistro,
-
+            'proprietario' => $request->proprietario,
         ];
-        livrete::where('id', $id)->update($data);
+        $livrete = livrete::find($id);
+        if ($request->documentos) {
+            Storage::disk('documentos')->delete($livrete->documentos);
+
+            $documento = Storage::putFile('public/livretes', $request->documento);
+            $documentoName = str_replace('public/livretes/', '', $documento);
+            $data['documentos'] = $documentoName;
+        }else{
+            $data['documentos'] = $livrete->documentos;
+        }
+
+        $livrete->update($data);
+
         $this->Logger->log('info', 'Editou livrete');
         return redirect()->route('admin.livretes');
     }
@@ -79,5 +84,19 @@ class LivreteController extends Controller
         livrete::where('id', $id)->delete();
         $this->Logger->log('info', 'Removeu livrete');
         return redirect()->route('admin.livretes');
+    }
+
+    public function livreteDoc($id)
+    {
+
+        $livrete = livrete::find($id);
+        $path = public_path('storage/livretes/' . $livrete->documentos);
+        //$path = asset('storage/'.$livrete->documentation);
+        //dd($path);
+
+        if (!file_exists($path)) {
+            return redirect()->back();
+        }
+        return response()->download($path);
     }
 }

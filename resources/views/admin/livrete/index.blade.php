@@ -32,24 +32,9 @@
                                                 <tr>
                                                     <th>#</th>
                                                     <th>Taxista</th>
-                                                    <th>Matrícula da Viatura</th>
-                                                    <th>Modelo dA Viatura</th>
-                                                    <th>Marca da Viatura</th>
-                                                    <th>Número de Motor</th>
-                                                    <th>Cor da Viatura</th>
-                                                    <th>Medidas dos Pneumáticos</th>
-                                                    <th>Peso Bruto</th>
-                                                    <th>Distancia entre Eixos</th>
-                                                    <th>Serviço</th>
-                                                    <th>Cilindrada</th>
-                                                    <th>Número de Quadros</th>
-                                                    <th>Lotação</th>
-                                                    <th>Tara</th>
-                                                    <th>Tipo de Caixa</th>
-                                                    <th>Combustível</th>
-                                                    <th>Número de Cilindros</th>
-                                                    <th>Data do Primeiro Registro</th>
-                                                    <th>Ações</th>
+                                                    <th>Proprietário</th>
+                                                    <th> Documento</th>
+                                                    
                                                     <th>Ações</th>
                                                 </tr>
                                             </thead>
@@ -61,59 +46,15 @@
                                                             {{ $livrete->taxista->nome }}
                                                         </td>
                                                         <td>
-                                                            {{ $livrete->nome }}
+                                                            {{ $livrete->proprietario }}
                                                         </td>
-                                                        <td>
-                                                            {{ $livrete->matricula1 }}
+                                                        <td class="text-sm">
+                                                            <a href="{{ route('admin.pdf.livreteDoc',$livrete->id) }}" class="btn btn-primary btn-sm text-white">
+                                                                <i class="icon-download"></i>
+                                                                Livrete
+                                                            </a>
                                                         </td>
-                                                        <td>
-                                                            {{ $livrete->modelo1 }}
-                                                        </td>
-                                                        <td>
-                                                            {{ $livrete->marca1 }}
-                                                        </td>
-                                                        <td>
-                                                            {{ $livrete->ndemotor1 }}
-                                                        </td>
-                                                        <td>
-                                                            {{ $livrete->cor1 }}
-                                                        </td>
-                                                        <td>
-                                                            {{ $livrete->medidaspneus }}
-                                                        </td>
-                                                        <td>
-                                                            {{ $livrete->pesobruto }}
-                                                        </td>
-                                                        <td>
-                                                            {{ $livrete->dentreixos }}
-                                                        </td>
-                                                        <td>
-                                                            {{ $livrete->servico }}
-                                                        </td>
-                                                        <td>
-                                                            {{ $livrete->cilindrada }}
-                                                        </td>
-                                                        <td>
-                                                            {{ $livrete->ndequadro1 }}
-                                                        </td>
-                                                        <td>
-                                                            {{ $livrete->lotacao }}
-                                                        </td>
-                                                        <td>
-                                                            {{ $livrete->tara }}
-                                                        </td>
-                                                        <td>
-                                                            {{ $livrete->tipocaixa }}
-                                                        </td>
-                                                        <td>
-                                                            {{ $livrete->combustivel }}
-                                                        </td>
-                                                        <td>
-                                                            {{ $livrete->ndecilindros }}
-                                                        </td>
-                                                        <td>
-                                                            {{ $livrete->dataregistro }}
-                                                        </td>
+                                                        
                                                         <td>
                                                             <div class="dropdown mb-4">
 

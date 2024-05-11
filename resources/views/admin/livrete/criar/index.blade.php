@@ -31,7 +31,7 @@
                                     </div>
                                     <div class="card">
                                         <div class="card-body">
-                                            <form action="{{ route('admin.livretes.store') }}" method="POST">
+                                            <form action="{{ route('admin.livretes.store') }}" method="POST" enctype="multipart/form-data">
                                                 @csrf
                                                 @include('_form.formlivrete.index')
 

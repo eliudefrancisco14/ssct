@@ -44,7 +44,7 @@ class TaxiController extends Controller
 
         ]);
         //$file = $request->file('documentos')->store('taxista');
-        
+
         $doc = Storage::putFile('public/documentos', $request->documentos);
         $docName = str_replace('public/documentos/', '', $doc);
         $file = $docName;
@@ -65,13 +65,10 @@ class TaxiController extends Controller
     {
 
         $placas = Placa::get();
-        $taxistas = taxista::where('id', $id)->first();
-        if (!empty($taxistas)) {
-            $this->Logger->log('info', 'Entrou em editar taxista');
-            return view('admin.taxista.editar.index', ['taxistas' => $taxistas, 'placas' => $placas]);
-        } else {
-            return redirect()->route('admin.taxistas');
-        }
+        $taxista = taxista::where('id', $id)->first();
+
+        $this->Logger->log('info', 'Entrou em editar taxista');
+        return view('admin.taxista.editar.index', ['taxista' => $taxista, 'placas' => $placas]);
     }
     public function update(Request $request, $id)
     {
@@ -82,7 +79,7 @@ class TaxiController extends Controller
             'genero' => 'required',
             'data' => 'required',
             'numerotelefone' => 'required',
-            'documentos' => 'required|mimes:pdf',
+            'documentos' => 'mimes:pdf',
             'placa_id' => 'required',
 
         ]);
@@ -90,16 +87,19 @@ class TaxiController extends Controller
         // $file = $request->file('documentos')->store('taxista');
         $taxista = taxista::find($id);
 
-        if ($request->documento) {
+        if ($request->documentos) {
             Storage::disk('documentos')->delete($taxista->documentos);
-            
-            $documento = Storage::putFile('public/documentos', $request->documento);
-            $documentoName = str_replace('public/documentos/','',$documento);
-            $data['documentos'] = $documentoName;
 
+            $documento = Storage::putFile('public/documentos', $request->documentos);
+            $documentoName = str_replace('public/documentos/', '', $documento);
+            $data['documentos'] = $documentoName;
+        }
+        else{
+            $data['documentos'] = $taxista->documentos;
         }
 
         taxista::find($id)->update($data);
+
         $this->Logger->log('info', 'Editou taxista');
         return redirect()->route('admin.taxistas');
     }
@@ -139,7 +139,6 @@ class TaxiController extends Controller
         } else {
             return redirect()->back();
         }
-
     }
 
     public function taxistaDoc($id)

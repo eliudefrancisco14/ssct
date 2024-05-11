@@ -6,10 +6,10 @@
             </button>
         </div>
         <div>
-            <a class="navbar-brand brand-logo" href="/">
+            <a class="navbar-brand brand-logo" href="/admin">
                 <img class="img-fluid" src="/dist/assets/images/logo.png" alt="logo" />
             </a>
-            <a class="navbar-brand brand-logo-mini" href="/">
+            <a class="navbar-brand brand-logo-mini" href="/admin">
                 <img class="img-fluid" src="/dist/assets/images/logo-mini.pgn" alt="logo" />
             </a>
         </div>

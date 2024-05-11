@@ -33,14 +33,8 @@
                                                 <tr>
                                                     <th>#</th>
                                                     <th class="px-4 py-3">Nome de Titular</th>
-                                                    <th class="px-4 py-3">Matricúla</th>
-                                                    <th class="px-4 py-3">Número de Quadros</th>
                                                     <th class="px-4 py-3">Número de Bilhete</th>
-                                                    <th class="px-4 py-3">Modelo da Viatura</th>
-                                                    <th class="px-4 py-3">Número de Motor</th>
                                                     <th class="px-4 py-3">Data de Emissão</th>
-                                                    <th class="px-4 py-3">Cor da Viatura</th>
-                                                    <th class="px-4 py-3">Marca da Viatura</th>
                                                     <th class="px-4 py-3">Número de Título</th>
                                                     <th class="px-4 py-3">Ações</th>
                                                 </tr>
@@ -54,28 +48,10 @@
                                                             {{ $titulo->nome }}
                                                         </td>
                                                         <td class="px-4 py-3 text-sm">
-                                                            {{ $titulo->matricula1 }}
-                                                        </td>
-                                                        <td class="px-4 py-3 text-sm">
-                                                            {{ $titulo->ndequadro1 }}
-                                                        </td>
-                                                        <td class="px-4 py-3 text-sm">
                                                             {{ $titulo->ndebi }}
                                                         </td>
                                                         <td class="px-4 py-3 text-sm">
-                                                            {{ $titulo->modelo1 }}
-                                                        </td>
-                                                        <td class="px-4 py-3 text-sm">
-                                                            {{ $titulo->ndemotor1 }}
-                                                        </td>
-                                                        <td class="px-4 py-3 text-sm">
                                                             {{ $titulo->dataemissao }}
-                                                        </td>
-                                                        <td class="px-4 py-3 text-sm">
-                                                            {{ $titulo->cor1 }}
-                                                        </td>
-                                                        <td class="px-4 py-3 text-sm">
-                                                            {{ $titulo->marca1 }}
                                                         </td>
                                                         <td class="px-4 py-3 text-sm">
                                                             {{ $titulo->ndetitulo }}

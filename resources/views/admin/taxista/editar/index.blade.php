@@ -25,12 +25,12 @@
                                 <div class="container grid px-6 mx-auto">
                                     <div class="header">
                                         <h2 class="my-6 text-2xl font-semibold text-gray-700">
-                                            Editar Taxista
+                                            Editar o Taxista "{{ $taxista->nome }}"
                                         </h2>
                                     </div>
                                     <div class="card">
                                         <div class="card-body">
-                                            <form action="{{ route('admin.taxistas.update', ['id' => $taxistas->id]) }}"
+                                            <form action="{{ route('admin.taxistas.update', ['id' => $taxista->id]) }}"
                                                 enctype="multipart/form-data" method="POST">
                                                 @csrf
                                                 @method('PUT')

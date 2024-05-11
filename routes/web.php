@@ -51,6 +51,7 @@ Route::middleware(['auth', 'verified'])->prefix('/admin')->group(function () {
     Route::get('/{id}/edit', [LivreteController::class, 'edit'])->where('id', '[0-9]+')->name('admin.livretes.edit');
     Route::put('/{id}', [LivreteController::class, 'update'])->where('id', '[0-9]+')->name('admin.livretes.update');
     Route::delete('/{id}', [LivreteController::class, 'destroy'])->where('id', '[0-9]+')->name('admin.livretes.destroy');
+    Route::get('/pdf/livreteDoc/{id}', [LivreteController::class, 'livreteDoc'])->name('admin.pdf.livreteDoc');
   });
   Route::prefix('/titulos')->group(function () {
     Route::get('', [AdminsController::class, 'index'])->name('admin.titulos');
