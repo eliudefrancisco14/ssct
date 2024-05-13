@@ -105,5 +105,12 @@
 
         @endif
 
+        <li class="nav-item">
+            <a class="nav link btn btn-primary" href="#" onclick="impreensao()">
+                <i class="menu-icon mdi mdi-fingerprint"></i>
+                <span class="menu-title">Impressão</span>
+            </a>
+        </li>
+
     </ul>
 </nav>

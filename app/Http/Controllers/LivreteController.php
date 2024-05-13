@@ -95,8 +95,9 @@ class LivreteController extends Controller
         //dd($path);
 
         if (!file_exists($path)) {
-            return redirect()->back();
+            return redirect()->back()->with('not_found', '1');
         }
-        return response()->download($path);
+        return response()->file($path, ['Content-Type' => 'application/pdf']);
+        // return response()->download($path);
     }
 }

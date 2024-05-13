@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\V1;
 
 use App\Http\Controllers\Controller;
 use App\Models\Fingerprint;
+use App\Models\FingerTaxista;
 use App\Models\taxista;
 use Illuminate\Http\Request;
 
@@ -49,6 +50,12 @@ class FingerprintController extends Controller
     }
     public function reconhecer($id)
     {
+        $esta = FingerTaxista::create([
+            'id_taxista' => $id,
+            'estado' => false,
+        ]);
+
+        dd($esta);
 
         $fingerprint = taxista::where('codigo',$id)->get()->toArray();
         if ($fingerprint) {

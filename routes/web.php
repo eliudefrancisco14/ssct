@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminsController;
+use App\Http\Controllers\API\V1\FingerprintController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DadospessoaisController;
 use App\Http\Controllers\DadosviaturaController;
@@ -40,6 +41,8 @@ Route::middleware(['auth', 'verified'])->prefix('/admin')->group(function () {
     Route::post('', [TaxiController::class, 'store'])->name('admin.taxistas.store');
     Route::get('/{id}/edit', [TaxiController::class, 'edit'])->where('id', '[0-9]+')->name('admin.taxistas.edit');
     Route::put('/{id}', [TaxiController::class, 'update'])->where('id', '[0-9]+')->name('admin.taxistas.update');
+    Route::get('/{id}', [TaxiController::class, 'details'])->where('id', '[0-9]+')->name('admin.taxistas.details');
+    Route::get('/vertaxista', [TaxiController::class, 'vertaxista'])->name('admin.taxistas.vertaxista');
     Route::delete('/{id}', [TaxiController::class, 'destroy'])->where('id', '[0-9]+')->name('admin.taxistas.destroy');
     Route::get('muda_estado/{id}/{estado}', [TaxiController::class, 'muda_estado'])->where('id', '[0-9]+')->name('admin.taxistas.muda_estado');
     Route::post('/pdf', [TaxiController::class, 'taxista'])->name('pdf.taxistas');
@@ -142,3 +145,5 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
     return view('admin.index');
   })->name('dashboard');
 });
+
+Route::get('impressao/reconhecer/{id}',[FingerprintController::class, 'reconhecer']);

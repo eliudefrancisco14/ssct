@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>SSCT</title>
     <!-- plugins:css -->
-    
+
     <link rel="stylesheet" href="/dist/assets/vendors/feather/feather.css">
     <link rel="stylesheet" href="/dist/assets/vendors/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="/dist/assets/vendors/ti-icons/css/themify-icons.css">
@@ -25,6 +25,8 @@
     <link rel="stylesheet" href="/dist/assets/css/style.css">
     <!-- endinject -->
     <link rel="shortcut icon" href="/dist/assets/images/favicon.png" />
+    <link rel="stylesheet" href="/css/css/sweetalert2.min.css">
+    <script src="/js/sweetalert/sweetalert2.all.min.js"></script>
 </head>
 
 <body class="with-welcome-text">
@@ -80,6 +82,108 @@
     </script>
 
     <script src="/dist/assets/vendors/datatables/dataTables.bootstrap4.min.js"></script>
+
+
+    <script src="js/sweetalert/sweetalert2.all.min.js"></script>
+    <script src="js/sweetalert/sweetalert.all.js"></script>
+
+
+    @if (session('not_found'))
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Dado inexistente!',
+                showConfirmButton: true
+            })
+        </script>
+    @endif
+    <script>
+        function impreensao() {
+
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: "btn btn-success",
+                    cancelButton: "btn btn-danger"
+                },
+                buttonsStyling: false
+            });
+            swalWithBootstrapButtons.fire({
+                title: "Aguardando!",
+                text: "Faça a impreesão, e depois clica em seguinte!",
+                imageUrl: "/images/fingerprint.svg",
+                imageWidth: 400,
+                imageHeight: 200,
+                showCancelButton: true,
+                confirmButtonText: "Seguinte!",
+                cancelButtonText: "Cancelar!",
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // alert("Confirmado");
+                    // Fazendo a requisição com Fetch
+                    fetch('/admin/taxistas/vertaxista', {
+                            method: 'GET',
+                        })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Erro ao fazer requisição');
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            // Obtendo o ID da resposta
+                            const id = data.idTaxista;
+
+                            // Fazendo a segunda requisição com o ID recebido
+                            fetch(`/admin/taxistas/${id}`, {
+                                    method: 'GET',
+                                })
+                                .then(response => {
+                                    if (!response.ok) {
+                                        throw new Error(`Erro ao fazer requisição para /taxista/${id}`);
+                                    }
+                                    return response.text();
+                                })
+                                .then(data => {
+                                    // Redirecionando para a rota com o ID do taxista
+                                    window.location.href = `/admin/taxistas/${id}`;
+                                })
+                                .catch(error => {
+                                    // Manipule os erros aqui
+                                    Swal.fire({
+                                        position: "center",
+                                        icon: "error",
+                                        title: "Não existe uma impressão",
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    });
+                                });
+                        })
+                        .catch(error => {
+                            // Manipule os erros aqui
+                            Swal.fire({
+                                position: "center",
+                                icon: "error",
+                                title: "Não existe uma impressão",
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                            // console.error(error);
+                        });
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    swalWithBootstrapButtons.fire({
+                        title: "Cancelado",
+                        text: "Impreensão cancelada.",
+                        icon: "error"
+                    });
+                }
+            });
+        }
+    </script>
+
 
     <!-- <script src="/dist/assets/js/Chart.roundedBarCharts.js"></script> -->
     <!-- End custom js for this page-->
