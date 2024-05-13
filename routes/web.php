@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\AdminsController;
-use App\Http\Controllers\API\V1\FingerprintController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DadospessoaisController;
 use App\Http\Controllers\DadosviaturaController;
@@ -145,5 +144,3 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
     return view('admin.index');
   })->name('dashboard');
 });
-
-Route::get('impressao/reconhecer/{id}',[FingerprintController::class, 'reconhecer']);
