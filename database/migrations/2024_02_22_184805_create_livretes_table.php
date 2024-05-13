@@ -16,6 +16,10 @@ class CreateLivretesTable extends Migration
         Schema::create('livretes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('taxista_id')->constrained('taxistas');
+            $table->string('matricula');
+            $table->string('modelo');
+            $table->string('ndemotor');
+            $table->string('servico');
             $table->string('documentos');
             $table->enum('proprietario', ['Sim', 'Nao'])->default('Sim');
             $table->timestamps();

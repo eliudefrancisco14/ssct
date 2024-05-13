@@ -32,9 +32,12 @@
                                                 <tr>
                                                     <th>#</th>
                                                     <th>Taxista</th>
+                                                    <th>Matricúla</th>
+                                                    <th>Modelo</th>
+                                                    <th>Número de Motor</th>
+                                                    <th>Serviço</th>
                                                     <th>Proprietário</th>
                                                     <th> Documento</th>
-                                                    
                                                     <th>Ações</th>
                                                 </tr>
                                             </thead>
@@ -44,6 +47,18 @@
                                                         <td class="text-sm">{{ $loop->index + 1 }}</td>
                                                         <td>
                                                             {{ $livrete->taxista->nome }}
+                                                        </td>
+                                                        <td>
+                                                            {{$livrete->matricula}}
+                                                        </td>
+                                                        <td>
+                                                            {{$livrete->modelo}}
+                                                        </td>
+                                                        <td>
+                                                            {{$livrete->ndemotor}}
+                                                        </td>
+                                                        <td>
+                                                            {{$livrete->servico}}
                                                         </td>
                                                         <td>
                                                             {{ $livrete->proprietario }}
