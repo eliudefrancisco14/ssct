@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Fingerprint extends Model
 {
     use HasFactory;
+    
+    protected $fillable = [
+        'fingerprint_id',
+    ];
 }

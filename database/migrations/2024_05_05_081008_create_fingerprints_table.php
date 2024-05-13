@@ -15,8 +15,7 @@ class CreateFingerprintsTable extends Migration
     {
         Schema::create('fingerprints', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('taxista_id')->constrained('taxistas');
-            $table->string('codigoFingerprint');
+            $table->string('fingerprint_id');
             $table->timestamps();
         });
     }

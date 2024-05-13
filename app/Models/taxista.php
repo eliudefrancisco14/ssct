@@ -16,6 +16,8 @@ class taxista extends Model
         'numerotelefone',
         'documentos',
         'placa_id',
+        'estado',
+        'codigo'
     ];
     public function titulo()
     {

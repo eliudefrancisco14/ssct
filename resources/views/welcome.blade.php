@@ -383,8 +383,9 @@
                             </h2>
                         </div>
                         <p>
-                            Sistema de Subvençao de combustiveis para taxistas
-                            Economize enquanto dirige! Nosso sistema de subvenção de combustível é a solução perfeita
+                            Sistema de Subvenção de Combustiveis para Taxistas
+                            é o sistema de auxílio a subvenção, onde podes fazer o seu cadastro de forma facíl, e manter a segurança dos seus dados pessoais!!
+                            Nosso sistema de subvenção de combustível é a solução perfeita
                             para taxistas preocupados com seus gastos.Maximize seus lucros com nosso sistema de
                             subvenção de combustível exclusivo para taxistas. Economize mais, dirija mais!.
                         </p>
@@ -438,9 +439,11 @@
                                 ANATA
                             </h6>
                             <p>
+                                Associação Nacional dos Taxistas de Angola,
+                                é a maior associação dos taxistas do nosso país.
+                                Que se responsabilizou em tratar e orgainizar 
+                                aquilo que seria o processo da subvenção!!
                                 FORMAR O HOMEM PARA OS DESAFIOS DA CLASSE.
-                                Líderes provinciais, municipais e distritais iniciam formação sobre gestão de
-                                transportes tráfego e mobilidade urbana.
                                 ANATA INVESTIR NO PRESENTE PARA GARANTIR O FUTURO DOS TAXISTAS DE ANGOLA 🇦🇴.
                             </p>
 

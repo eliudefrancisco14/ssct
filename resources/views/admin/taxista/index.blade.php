@@ -52,6 +52,7 @@
                                                     <th scope="col">Número de Telefone</th>
                                                     <th scope="col">Placa</th>
                                                     <th scope="col">Documento</th>
+                                                    <th>Impressão Digital</th>
                                                     <th>Ações</th>
                                                 </tr>
                                             </thead>
@@ -83,6 +84,9 @@
                                                                 BI
                                                             </a>
                                                         </td>
+                                                        <td>{{ $taxista->codigo }}
+
+                                                        </td>
                                                         <td>
                                                             <div class="dropdown mb-4">
 
@@ -109,10 +113,13 @@
                                                                                 Remover
                                                                             </button>
                                                                         </form>
-                                                                        {{--  <a class="dropdown-item delete-button"
-                                                                            href="{{ route('taxista.destroy', $taxista->id) }}">
-                                                                            Remover
-                                                                        </a> --}}
+                                                                        @if($taxista->estado==0)
+                                                                    <a class="dropdown-item delete-button"
+                                                        href="{{ route('admin.taxistas.muda_estado', ['id'=>$taxista->id,'estado'=>1]) }}">Habilitar Leitura </a>
+                                                                    @else
+                                                                    <a class="dropdown-item delete-button"
+                                                    href="{{ route('admin.taxistas.muda_estado', ['id'=>$taxista->id,'estado'=>0]) }}">Desabilitar Leitura </a>
+                                                                    @endif
                                                                     </div>
                                                                 </div>
 

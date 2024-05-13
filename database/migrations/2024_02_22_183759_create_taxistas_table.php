@@ -17,11 +17,13 @@ class CreateTaxistasTable extends Migration
             $table->id();
             $table->string('nome');
             $table->string('ndebi');
-            $table->enum('genero', ['masculino', 'femenino'/*,'outro'*/]);
+            $table->enum('genero', ['masculino', 'feminino'/*,'outro'*/]);
             $table->date('data');
             $table->string('numerotelefone');
             $table->string('documentos');            
             $table->foreignId('placa_id')->constrained('placas');
+            $table->integer('estado')->default(0);
+            $table->string('codigo')->nullable();
             $table->timestamps();
         });
     }

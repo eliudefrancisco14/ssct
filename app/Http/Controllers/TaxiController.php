@@ -25,6 +25,14 @@ class TaxiController extends Controller
         // dd( $response['formandos']);
         return view('admin.taxista.index', $response);
     }
+    public function muda_estado($id, $estado)
+    {
+        taxista::where('estado',1)->update(['estado'=>0]);
+   
+        $r=taxista::find($id)->update(['estado'=>$estado]);
+// dd($r);
+         return redirect()->back();
+    }
     public function create()
     {
         $response['placas'] = Placa::get();

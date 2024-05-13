@@ -41,6 +41,7 @@ Route::middleware(['auth', 'verified'])->prefix('/admin')->group(function () {
     Route::get('/{id}/edit', [TaxiController::class, 'edit'])->where('id', '[0-9]+')->name('admin.taxistas.edit');
     Route::put('/{id}', [TaxiController::class, 'update'])->where('id', '[0-9]+')->name('admin.taxistas.update');
     Route::delete('/{id}', [TaxiController::class, 'destroy'])->where('id', '[0-9]+')->name('admin.taxistas.destroy');
+    Route::get('muda_estado/{id}/{estado}', [TaxiController::class, 'muda_estado'])->where('id', '[0-9]+')->name('admin.taxistas.muda_estado');
     Route::post('/pdf', [TaxiController::class, 'taxista'])->name('pdf.taxistas');
     Route::get('/pdf/taxistaDoc/{id}', [TaxiController::class, 'taxistaDoc'])->name('admin.pdf.taxistaDoc');
   });
