@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Classes\Logger;
+use App\Models\Fingerprint;
+use App\Models\FingerTaxista;
+use App\Models\livrete;
 use App\Models\Placa;
 use App\Models\taxista;
 use Barryvdh\DomPDF\Facade\Pdf as PDF;
@@ -22,22 +25,58 @@ class TaxiController extends Controller
         $response['placas'] = Placa::get();
         $response['taxistas'] = taxista::orderByDesc('id')->get();
         $this->Logger->log('info', 'Listou os taxistas');
-        // dd( $response['formandos']);
+
         return view('admin.taxista.index', $response);
     }
     public function muda_estado($id, $estado)
     {
-        taxista::where('estado',1)->update(['estado'=>0]);
-   
-        $r=taxista::find($id)->update(['estado'=>$estado]);
-// dd($r);
-         return redirect()->back();
+        taxista::where('estado', 1)->update(['estado' => 0]);
+
+        $r = taxista::find($id)->update(['estado' => $estado]);
+
+        return redirect()->back();
     }
     public function create()
     {
         $response['placas'] = Placa::get();
         $this->Logger->log('info', 'Entrou em cadastrar taxistas');
         return view('admin.taxista.criar.index', $response);
+    }
+
+    public function details($id)
+    {
+        $response['taxista'] = taxista::where('id', $id)->first();
+        $response['livrete'] = livrete::where('taxista_id', $response['taxista']->id)->first();
+        $response['placa'] = Placa::where('id', $response['taxista']->placa_id)->first();
+
+        $this->Logger->log('info', 'Entrou em Ver Detalhes do Taxista');
+        return view('admin.taxista.detalhes.index', $response);
+    }
+    public function vertaxista()
+    {
+        // Verifica se o dado da sessão existe
+        $taxista = FingerTaxista::where('estado', false)->orderByDesc('id')->first();
+
+        // $taxista = FingerTaxista::where('estado', false)->orderByDesc('id')->first();
+        $primeiroTaxista = FingerTaxista::where('estado', false)->orderByDesc('id')->first();
+
+            // Obtendo o próximo taxista com ID maior que o primeiro
+            $proximoTaxista = FingerTaxista::where('estado', false)
+                ->where('id', '<', $primeiroTaxista->id)
+                ->orderByDesc('id')
+                ->first();
+
+        if (isset($proximoTaxista)) {
+            // Obtém o valor da sessão
+            $idTaxista = $proximoTaxista->id_taxista;
+            FingerTaxista::find($proximoTaxista->id)->update(['estado' => true]);
+
+            // Retorna um JSON com os dados da sessão
+            return response()->json(['idTaxista' => $idTaxista], 200);
+        } else {
+            // Se o dado da sessão não existir, retorna um erro 404
+            return response()->json(['error' => 'Dado não encontrado'], 404);
+        }
     }
     public function store(Request $request)
     {
@@ -101,8 +140,7 @@ class TaxiController extends Controller
             $documento = Storage::putFile('public/documentos', $request->documentos);
             $documentoName = str_replace('public/documentos/', '', $documento);
             $data['documentos'] = $documentoName;
-        }
-        else{
+        } else {
             $data['documentos'] = $taxista->documentos;
         }
 
@@ -158,8 +196,9 @@ class TaxiController extends Controller
         //dd($path);
 
         if (!file_exists($path)) {
-            return redirect()->back();
+            return redirect()->back()->with('not_found', '1');
         }
-        return response()->download($path);
+        return response()->file($path, ['Content-Type' => 'application/pdf']);
+        // return response()->download($path);
     }
 }

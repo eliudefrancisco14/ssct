@@ -13,6 +13,7 @@ class livrete extends Model
     'documentos',
     'proprietario',
 ];
+
 public function titulo()
 {
     return $this->hasOne(titulo::class);
