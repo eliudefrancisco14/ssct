@@ -19,11 +19,11 @@ class taxista extends Model
         'estado',
         'codigo'
     ];
-    public function titulo()
+    public function titulos()
     {
         return $this->hasMany(titulo::class);
     }
-    public function livrete()
+    public function livretes()
     {
         return $this->hasMany(livrete::class);
     }

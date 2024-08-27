@@ -331,14 +331,14 @@ a:focus {
   margin: 0 auto;
 }
 
-.slider_section .detail-box h1 {
+.slider_section .detail-box h2 {
   text-transform: uppercase;
   font-size: 3rem;
   color: #ffffff;
   font-weight: 600;
 }
 
-.slider_section .detail-box h1 span {
+.slider_section .detail-box h2 span {
   color: #35AFDD;
 }
 

@@ -32,7 +32,7 @@ class TaxiController extends Controller
     {
         taxista::where('estado', 1)->update(['estado' => 0]);
 
-        $r = taxista::find($id)->update(['estado' => $estado]);
+        $id = taxista::find($id)->update(['estado' => $estado]);
 
         return redirect()->back();
     }
@@ -55,21 +55,21 @@ class TaxiController extends Controller
     public function vertaxista()
     {
         // Verifica se o dado da sessão existe
-        $taxista = FingerTaxista::where('estado', false)->orderByDesc('id')->first();
+        $idTaxista = FingerTaxista::where('estado', false)->orderByDesc('id')->first();
 
-        // $taxista = FingerTaxista::where('estado', false)->orderByDesc('id')->first();
+         // $taxista = FingerTaxista::where('estado', false)->orderByDesc('id')->first();
         $primeiroTaxista = FingerTaxista::where('estado', false)->orderByDesc('id')->first();
 
             // Obtendo o próximo taxista com ID maior que o primeiro
-            $proximoTaxista = FingerTaxista::where('estado', false)
-                ->where('id', '<', $primeiroTaxista->id)
-                ->orderByDesc('id')
-                ->first();
+            // $proximoTaxista = FingerTaxista::where('estado', false)
+                // ->where('id', '<', $primeiroTaxista->id)
+                // // ->orderByDesc('id')
+                // ->first();
 
-        if (isset($proximoTaxista)) {
+        if (isset( $primeiroTaxista)) {
             // Obtém o valor da sessão
-            $idTaxista = $proximoTaxista->id_taxista;
-            FingerTaxista::find($proximoTaxista->id)->update(['estado' => true]);
+            $idTaxista =  $primeiroTaxista->id_taxista;
+            FingerTaxista::find( $primeiroTaxista->id)->update(['estado' => true]);
 
             // Retorna um JSON com os dados da sessão
             return response()->json(['idTaxista' => $idTaxista], 200);
@@ -200,5 +200,35 @@ class TaxiController extends Controller
         }
         return response()->file($path, ['Content-Type' => 'application/pdf']);
         // return response()->download($path);
+    }
+   
+
+    public function cartao(Request $request)
+    {
+        // Valida que o ID do taxista foi fornecido
+        $data = $request->validate([
+            'id' => 'required|exists:taxistas,id',
+        ], [
+            'id.required' => 'O campo ID do Taxista é obrigatório.',
+            'id.exists' => 'O Taxista selecionado não existe.',
+        ]);
+
+        // Busca o taxista pelo ID fornecido
+        $taxista = Taxista::find($data['id']);
+
+        if ($taxista) {
+            // Prepara os dados para a resposta
+            $response['taxista'] = $taxista;
+
+            // Registra no log
+            $this->Logger->log('info', 'Imprimiu relatório do taxista ID: ' . $taxista->id);
+
+            // Gera o PDF
+            $pdf = PDF::loadview('pdf.cartao.index', $response);
+            return $pdf->setPaper('a4', 'landscape')->stream('taxista_' . $taxista->id . '.pdf', ['Attachment' => 0]);
+        } else {
+            // Se o taxista não for encontrado, redireciona de volta
+            return redirect()->back()->withErrors(['id' => 'Taxista não encontrado.']);
+        }
     }
 }

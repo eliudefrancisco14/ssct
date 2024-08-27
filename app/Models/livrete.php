@@ -18,12 +18,13 @@ class livrete extends Model
     'proprietario',
 ];
 
-public function titulo()
-{
-    return $this->hasOne(titulo::class);
-}
 public function taxista()
 {
     return $this->belongsTo(taxista::class);
+}
+
+public function titulos()
+{
+    return $this->hasMany(titulo::class);
 }
 }

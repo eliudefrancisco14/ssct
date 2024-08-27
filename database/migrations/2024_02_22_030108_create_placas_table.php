@@ -15,6 +15,9 @@ class CreatePlacasTable extends Migration
     {
         Schema::create('placas', function (Blueprint $table) {
             $table->id();
+            $table->string('presidente');
+            $table->string('bipresidente');
+            $table->string('numpresidente');
             $table->string('nome');
             $table->string('localizacao');
             $table->string('descricao');

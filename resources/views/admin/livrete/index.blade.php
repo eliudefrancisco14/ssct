@@ -31,8 +31,8 @@
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
-                                                    <th>Taxista</th>
                                                     <th>Matricúla</th>
+                                                    <th>Taxista</th>
                                                     <th>Modelo</th>
                                                     <th>Número de Motor</th>
                                                     <th>Serviço</th>
@@ -46,10 +46,10 @@
                                                     <tr>
                                                         <td class="text-sm">{{ $loop->index + 1 }}</td>
                                                         <td>
-                                                            {{ $livrete->taxista->nome }}
+                                                          <a class="text-dark text-decoration-none" href="{{ route('admin.livretes.exibir', ['id'=>$livrete->id]) }}"> {{ $livrete->matricula }}</a> 
                                                         </td>
                                                         <td>
-                                                            {{$livrete->matricula}}
+                                                            {{ $livrete->taxista->nome }}
                                                         </td>
                                                         <td>
                                                             {{$livrete->modelo}}
@@ -100,6 +100,8 @@
                                                                             href="{{ route('taxista.destroy', $taxista->id) }}">
                                                                             Remover
                                                                         </a> --}}
+                                                                        <div class="dropdown-divider"></div>
+                                                                        
                                                                     </div>
                                                                 </div>
 

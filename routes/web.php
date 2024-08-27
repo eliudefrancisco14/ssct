@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminsController;
+use App\Http\Controllers\API\V1\FingerprintController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DadospessoaisController;
 use App\Http\Controllers\DadosviaturaController;
@@ -44,7 +45,8 @@ Route::middleware(['auth', 'verified'])->prefix('/admin')->group(function () {
     Route::get('/vertaxista', [TaxiController::class, 'vertaxista'])->name('admin.taxistas.vertaxista');
     Route::delete('/{id}', [TaxiController::class, 'destroy'])->where('id', '[0-9]+')->name('admin.taxistas.destroy');
     Route::get('muda_estado/{id}/{estado}', [TaxiController::class, 'muda_estado'])->where('id', '[0-9]+')->name('admin.taxistas.muda_estado');
-    Route::post('/pdf', [TaxiController::class, 'taxista'])->name('pdf.taxistas');
+    Route::post('/pdf', [TaxiController::class, 'taxista'])->name('pdf.taxista');
+    //Route::post('/pdf', [TaxiController::class, 'cartao'])->name('pdf.cartao');//
     Route::get('/pdf/taxistaDoc/{id}', [TaxiController::class, 'taxistaDoc'])->name('admin.pdf.taxistaDoc');
   });
   Route::prefix('/livretes')->group(function () {
@@ -52,6 +54,7 @@ Route::middleware(['auth', 'verified'])->prefix('/admin')->group(function () {
     Route::get('/create', [LivreteController::class, 'create'])->name('admin.livretes.create');
     Route::post('', [LivreteController::class, 'store'])->name('admin.livretes.store');
     Route::get('/{id}/edit', [LivreteController::class, 'edit'])->where('id', '[0-9]+')->name('admin.livretes.edit');
+    Route::get('/{id}/exibir', [LivreteController::class, 'exibir'])->where('id', '[0-9]+')->name('admin.livretes.exibir');
     Route::put('/{id}', [LivreteController::class, 'update'])->where('id', '[0-9]+')->name('admin.livretes.update');
     Route::delete('/{id}', [LivreteController::class, 'destroy'])->where('id', '[0-9]+')->name('admin.livretes.destroy');
     Route::get('/pdf/livreteDoc/{id}', [LivreteController::class, 'livreteDoc'])->name('admin.pdf.livreteDoc');
@@ -78,8 +81,12 @@ Route::middleware(['auth', 'verified'])->prefix('/admin')->group(function () {
     Route::get('', [PlacaController::class, 'index'])->name('admin.placas');
     Route::get('/create', [PlacaController::class, 'create'])->name('admin.placas.create');
     Route::post('', [PlacaController::class, 'store'])->name('admin.placas.store');
+    Route::get('/{id}/entrar', [PlacaController::class, 'entrar'])->name('admin.placas.entrar');
+    Route::get('/{id}/listar', [PlacaController::class, 'listar'])->where('id', '[0-9]+')->name('admin.placas.listar');
+    Route::get('/{id}/infor', [PlacaController::class, 'infor'])->where('id', '[0-9]+')->name('admin.placas.infor');
     Route::get('/{id}/edit', [PlacaController::class, 'edit'])->where('id', '[0-9]+')->name('admin.placas.edit');
     Route::put('/{id}', [PlacaController::class, 'update'])->where('id', '[0-9]+')->name('admin.placas.update');
+    Route::post('/pdf', [PlacaController::class, 'placa'])->name('pdf.placa');
     Route::delete('/{id}', [PlacaController::class, 'destroy'])->where('id', '[0-9]+')->name('admin.placas.destroy');
   });
 });
@@ -116,7 +123,7 @@ Route::get('/', function () {
 
 ////////Rota para os relatórios-----------------------------------//
 
-Route::get('/gerar-pdf-relatorio', [RelatorioController::class, 'gerarPdf'])->name('relatorio.gerar-pdf');
+//Route::get('/gerar-pdf-relatorio', [RelatorioController::class, 'gerarPdf'])->name('relatorio.gerar-pdf');//
 
 /* ////-Rota do login e dos register---------------------------------------//
 Route::post('/login', [AuthController::class, 'login'])->name('login');
@@ -144,3 +151,5 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
     return view('admin.index');
   })->name('dashboard');
 });
+
+//Route::get('impressao/reconhecer/{id}',[FingerprintController::class, 'reconhecer']);

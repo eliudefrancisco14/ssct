@@ -17,7 +17,7 @@ class CreateTaxistasTable extends Migration
             $table->id();
             $table->string('nome');
             $table->string('ndebi');
-            $table->enum('genero', ['masculino', 'feminino'/*,'outro'*/]);
+            $table->enum('genero', ['masculino', 'feminino']);
             $table->date('data');
             $table->string('numerotelefone');
             $table->string('documentos');            

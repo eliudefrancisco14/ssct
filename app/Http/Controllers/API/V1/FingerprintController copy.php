@@ -50,10 +50,18 @@ class FingerprintController extends Controller
     }
     public function reconhecer($id)
     {
-
-        $fingerprint = taxista::where('codigo',$id)->get()->toArray();
+        
+        
+        $fingerprint = taxista::where('codigo',$id)->first()->toArray();
+        $taxista = taxista::where('codigo',$id)->first();
+        
         if ($fingerprint) {
-            return response()->json(['fingerprint' => $fingerprint, 'message' => 'Impressão reconhecida com sucesso!'], 201);
+            $resposta = FingerTaxista::create([
+                'id_taxista' => $taxista->id,
+                'estado' => false,
+            ]);
+
+            return response()->json(['fingerprint' => $fingerprint, 'message' => 'Impressão reconhecida com sucesso!'], 200);
         } else {
             return response()->json(['fingerprint' => $fingerprint, 'message' => 'Impressao nao reconhecida!'], 201);
         }

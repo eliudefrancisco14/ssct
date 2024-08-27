@@ -1,4 +1,4 @@
-@extends('layouts.merge.dashboard')
+@extends('layouts.merge.direita')
 @section('content')
     <div class="content-wrapper">
         <div class="row">
@@ -8,13 +8,11 @@
                         <ul class="nav nav-tabs" role="tablist">
                             <li class="nav-item">
                                 <a class="nav-link active ps-0" id="home-tab" data-bs-toggle="tab" href="#overview"
-                                    role="tab" aria-controls="overview" aria-selected="true">Painel</a>
+                                    role="tab" aria-controls="overview" aria-selected="true"></a>
                             </li>
-
-                        </ul>
-                        <div class="border pt-4 px-3 text-center align-items-center">
+                            <div class="border pt-4 px-3 text-center align-items-center">
                             <form class="d-sm-flex align-items-center justify-content-between row"
-                                action="{{ route('pdf.taxista') }}" method="POST" target="_blank">
+                                action="{{ route('pdf.placa') }}" method="POST" target="_blank">
                                 @csrf
                                 <div class="form-group col-md-4">
                                     De:
@@ -32,13 +30,54 @@
                                 </div>
                             </form>
                         </div>
+
+                        </ul>
+                        {{-- <div>
+                            <div class="btn-wrapper">
+                                <a href="#" class="btn btn-primary text-white me-0"><i class="icon-download"></i>
+                                    Imprimir</a>
+                            </div>
+                        </div> --}}
                     </div>
                     <div class="tab-content tab-content-basic">
                         <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview">
-                            <div class="container">
-                                <div class="container grid px-6 mx-auto">
-                                    <h2 class="my-6 text-2xl font-semibold text-gray-700">
-                                        Listas dos Taxistas
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="statistics-details d-flex align-items-center justify-content-between">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                
+                                <div class="col-lg-12 d-flex flex-column">
+                                    <div class="row flex-grow">
+                                        <div class="col-md-6 col-lg-12 grid-margin stretch-card">
+                                            <div class="card bg-primary card-rounded">
+                                                <div class="card-body pb-0">
+                                                    <h4 class="card-title card-title-dash text-white mb-4">Total de Taxistas da Placa
+                                                    </h4>
+                                                    <div class="row">
+                                                        <div class="col-sm-4">
+                                                            <p class="status-summary-ight-white mb-1">Taxistas</p>
+                                                            <h2 class="text-info"></h2>
+                                                        </div>
+                                                        <div class="col-sm-8">
+                                                            <div class="status-summary-chart-wrapper pb-4">
+                                                                <canvas id="status-summary"></canvas>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-12">
+                                
+                                    <h2 class=" text-2xl font-semibold text-gray-700">
+                                        Taxistas Da Placa
                                     </h2>
                                     <div class="table-responsive">
                                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -48,11 +87,9 @@
                                                     <th>Nome</th>
                                                     <th>Número de Bilhete</th>
                                                     <th>Gênero</th>
-                                                    <th scope="col">Data de Nascimento</th>
                                                     <th scope="col">Número de Telefone</th>
                                                     <th scope="col">Placa</th>
-                                                    <th scope="col">Documento</th>
-                                                    <th>Impressão Digital</th>
+                                                    <th scope="col">Documento</th> 
                                                     <th>Ações</th>
                                                 </tr>
                                             </thead>
@@ -69,9 +106,7 @@
                                                         <td class=" text-sm">
                                                             {{ $taxista->genero }}
                                                         </td>
-                                                        <td class=" text-sm">
-                                                            {{ $taxista->data }}
-                                                        </td>
+                                                       
                                                         <td class=" text-sm">
                                                             {{ $taxista->numerotelefone }}
                                                         </td>
@@ -84,9 +119,7 @@
                                                                 BI
                                                             </a>
                                                         </td>
-                                                        <td> <i class="menu-icon mdi mdi-36px mdi-fingerprint"></i>
-
-                                                        </td>
+                                                        
                                                         <td>
                                                             <div class="dropdown mb-4">
 
@@ -114,13 +147,8 @@
                                                                             </button>
                                                                         </form>
                                                                         <div class="dropdown-divider"></div>
-                                                                        @if($taxista->estado==0)
-                                                                    <a class="dropdown-item delete-button"
-                                                        href="{{ route('admin.taxistas.muda_estado', ['id'=>$taxista->id,'estado'=>1]) }}">Habilitar Leitura </a>
-                                                                    @else
-                                                                    <a class="dropdown-item delete-button"
-                                                    href="{{ route('admin.taxistas.muda_estado', ['id'=>$taxista->id,'estado'=>0]) }}">Desabilitar Leitura </a>
-                                                                    @endif
+                                                                       
+                                                                    
                                                                     </div>
                                                                 </div>
 
@@ -133,10 +161,14 @@
                                         </table>
                                     </div>
 
+                             
                                 </div>
+                                
                             </div>
                         </div>
                     </div>
+                
+                    
                 </div>
             </div>
         </div>

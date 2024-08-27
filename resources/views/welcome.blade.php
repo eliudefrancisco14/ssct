@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Welcome | SSCT</title>
+    <title>Welcome | TORETO</title>
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -21,7 +21,7 @@
     <meta name="author" content="" />
     <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
 
-    <title>SSCT</title>
+    <title>TORETO</title>
 
     <!-- bootstrap core css -->
     <link rel="stylesheet" type="text/css" href="css/css/bootstrap.css" />
@@ -180,7 +180,7 @@
                             <div class="text-start">
                                 <a href="/">
                                     <h1 class="mt-3">
-                                        <strong>SSCT</strong>
+                                        <strong>TORETO</strong>
                                     </h1>
                                 </a>
                             </div>
@@ -310,13 +310,15 @@
                             <div class="row">
                                 <div class="col-md-7">
                                     <div class="detail-box">
-                                        <h1>
+                                        <h2>
                                             Cadastro <br>
                                             <span>
-                                                Faça o registro dos seus dados na plataforma e aproveite a oportunidade
-                                                da subvenção de combustível.
+                                                Faça o registro dos seus dados na plataforma e aproveite 
+                                                o momento.
+                                
+                                            
                                             </span>
-                                        </h1>
+                                        </h2>
                                         <p>
 
                                         </p>
@@ -333,13 +335,13 @@
                             <div class="row">
                                 <div class="col-md-7">
                                     <div class="detail-box">
-                                        <h1>
+                                        <h2>
                                             Entre como um operador <br>
                                             <span>
                                                 Como um policial ou um frentista, podes fazer a verificação dos taxistas
                                                 pela plataforma
                                             </span>
-                                        </h1>
+                                        </h2>
                                         <p>
 
                                         </p>
@@ -379,15 +381,13 @@
                     <div class="detail-box">
                         <div class="heading_container ">
                             <h2>
-                                SSCT?
+                                TORETO?
                             </h2>
                         </div>
                         <p>
-                            Sistema de Subvenção de Combustiveis para Taxistas
-                            é o sistema de auxílio a subvenção, onde podes fazer o seu cadastro de forma facíl, e manter a segurança dos seus dados pessoais!!
-                            Nosso sistema de subvenção de combustível é a solução perfeita
-                            para taxistas preocupados com seus gastos.Maximize seus lucros com nosso sistema de
-                            subvenção de combustível exclusivo para taxistas. Economize mais, dirija mais!.
+                            Sistema de Controle e Identifação de Taxista
+                            é o sistema de gestão e identificação de taxistas apartir da impressão digital, onde podes fazer o seu cadastro de forma fácil,  manter a segurança dos seus dados pessoais e te fazer sentir num taxista mais responsavél!! Nosso sistema Toreto é a solução perfeita para taxistas preocupados com o seu serviço.
+    
                         </p>
                         <div class="btn-box">
                             <a href="{{ route('site') }}">

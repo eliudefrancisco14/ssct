@@ -39,6 +39,10 @@ class LivreteController extends Controller
         $data = [
 
             'taxista_id' => $request->taxista_id,
+            'matricula' => $request,
+            'modelo' => $request,
+            'ndemotor' => $request,
+            'servico' => $request,
             'documentos' => $file,
             'proprietario' => $request->proprietario,
 
@@ -61,6 +65,10 @@ class LivreteController extends Controller
     {
         $data = [
             'taxista_id' => $request->taxista_id,
+            'matricula' => $request->matricula,
+            'modelo' =>$request-> modelo,
+            'ndemotor' =>$request-> ndemotor,
+            'servico' =>$request-> servico,
             'proprietario' => $request->proprietario,
         ];
         $livrete = livrete::find($id);
@@ -100,4 +108,14 @@ class LivreteController extends Controller
         return response()->file($path, ['Content-Type' => 'application/pdf']);
         // return response()->download($path);
     }
+    public function exibir($id)
+    {
+        $response['livrete'] = livrete::where('id', $id)->first();
+    
+
+        $this->Logger->log('info', 'Entrou em Ver Detalhes do Taxista');
+        return view('admin.livrete.exibir.index', $response);
+    }
 }
+
+

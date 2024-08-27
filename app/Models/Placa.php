@@ -9,13 +9,16 @@ class Placa extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'presidente',
+        'bipresidente',
+        'numpresidente',
         'nome',
         'localizacao',
         'descricao',
     ];
 
-    public function taxista()
-{
-    return $this->hasMany(titulo::class);
-}
+    public function taxistas()
+    {
+        return $this->hasMany(taxista::class);
+    }
 }

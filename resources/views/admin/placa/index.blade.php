@@ -32,6 +32,10 @@
                                                 <tr>
                                                     <th>#</th>
                                                     <th>Placa</th>
+
+                                                    <th>Presidente</th>
+                                                    <th>B.I do Presidente</th>
+                                                    <th>Número do Presidente</th>
                                                     <th>Localização</th>
                                                     <th>Descrição</th>
                                                     <th>Ações</th>
@@ -42,8 +46,18 @@
                                                     <tr>
                                                         <td class="text-sm">{{ $loop->index + 1 }}</td>
                                                         <td>
-                                                            {{ $placa->nome }}
+                                                          <a class="text-dark text-decoration-none" href="{{ route('admin.placas.entrar', ['id'=>$placa->id]) }}"> {{ $placa->nome }}</a> 
                                                         </td>
+                                                        <td>
+                                                            {{ $placa->presidente }}
+                                                        </td>
+                                                        <td>
+                                                            {{ $placa->bipresidente }}
+                                                        </td>
+                                                        <td>
+                                                            {{ $placa->numpresidente }}
+                                                        </td>
+                                                       
                                                         <td>
                                                             {{ $placa->localizacao }}
                                                         </td>
@@ -81,6 +95,8 @@
                                                                             href="{{ route('taxista.destroy', $taxista->id) }}">
                                                                             Remover
                                                                         </a> --}}
+                                                                        <div class="dropdown-divider"></div>
+                                                                        
                                                                     </div>
                                                                 </div>
 

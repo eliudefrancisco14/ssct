@@ -18,5 +18,6 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
 Route::get('impressao/cadastrar/{id}',[FingerprintController::class, 'codigo_cadastrar']);
 Route::get('impressao/reconhecer/{id}',[FingerprintController::class, 'reconhecer']);

@@ -48,6 +48,10 @@ class TaxistaController extends Controller
         $data = [
 
             'taxista_id' => $taxista->id,
+            'matricula' => $request->matricula,
+            'modelo' =>$request-> modelo,
+            'ndemotor' =>$request-> ndemotor,
+            'servico' =>$request-> servico,
             'documentos' => $file,
             'proprietario' => $request->proprietario,
 

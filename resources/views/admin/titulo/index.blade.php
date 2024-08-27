@@ -33,6 +33,7 @@
                                                 <tr>
                                                     <th>#</th>
                                                     <th class="px-4 py-3">Nome de Titular</th>
+                                                    <th class="px-4 py-3">Matrícula da Viatura</th>
                                                     <th class="px-4 py-3">Número de Bilhete</th>
                                                     <th class="px-4 py-3">Data de Emissão</th>
                                                     <th class="px-4 py-3">Número de Título</th>
@@ -46,6 +47,9 @@
                                                         
                                                         <td class="px-4 py-3 text-sm">
                                                             {{ $titulo->nome }}
+                                                        </td>
+                                                        <td class="px-4 py-3 text-sm">
+                                                            {{ $titulo->matricula }}
                                                         </td>
                                                         <td class="px-4 py-3 text-sm">
                                                             {{ $titulo->ndebi }}
